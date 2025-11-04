@@ -14,14 +14,25 @@
  */
 
 import { LLMError, LLMErrorType } from '../../types/llm';
-import { exec } from 'child_process';
+import { spawn } from 'child_process';
+import { EventEmitter } from 'events';
 
-// Mock child_process.exec
+// Mock child_process.spawn
 jest.mock('child_process', () => ({
-  exec: jest.fn(),
+  spawn: jest.fn(),
 }));
 
-const mockExec = exec as jest.MockedFunction<typeof exec>;
+const mockSpawn = spawn as jest.MockedFunction<typeof spawn>;
+
+// Helper to create mock child process
+function createMockChildProcess() {
+  const mockChild = new EventEmitter() as any;
+  mockChild.stdout = new EventEmitter();
+  mockChild.stderr = new EventEmitter();
+  mockChild.kill = jest.fn();
+  mockChild.killed = false;
+  return mockChild;
+}
 
 // Set environment variables BEFORE importing the service
 process.env.LLM_CLI_PATH = '/path/to/llm_call.py';

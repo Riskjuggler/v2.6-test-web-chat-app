@@ -5,8 +5,7 @@
  * Handles JSON request/response serialization and exit code error mapping
  */
 
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { spawn } from 'child_process';
 import {
   LLMRequest,
   LLMResponse,
@@ -15,7 +14,73 @@ import {
   LLMErrorType,
 } from '../types/llm';
 
-const execAsync = promisify(exec);
+/**
+ * Spawn-based subprocess wrapper (secure, no shell invocation)
+ *
+ * Executes a command with arguments array, avoiding shell interpretation
+ * of special characters. This prevents command injection vulnerabilities.
+ */
+function spawnAsync(
+  command: string,
+  args: string[],
+  options: { timeout: number; maxBuffer?: number }
+): Promise<{ stdout: string; stderr: string }> {
+  return new Promise((resolve, reject) => {
+    const child = spawn(command, args, {
+      shell: false, // CRITICAL: No shell spawning
+      timeout: options.timeout,
+    });
+
+    let stdout = '';
+    let stderr = '';
+    const maxBuffer = options.maxBuffer || 1024 * 1024;
+
+    child.stdout.on('data', (data) => {
+      stdout += data.toString();
+      if (stdout.length > maxBuffer) {
+        child.kill();
+        reject(new Error('maxBuffer exceeded'));
+      }
+    });
+
+    child.stderr.on('data', (data) => {
+      stderr += data.toString();
+      if (stderr.length > maxBuffer) {
+        child.kill();
+        reject(new Error('maxBuffer exceeded'));
+      }
+    });
+
+    child.on('error', (error) => {
+      reject(error);
+    });
+
+    child.on('close', (code, signal) => {
+      if (signal === 'SIGTERM' || signal === 'SIGKILL') {
+        const error: any = new Error(`Process killed with signal ${signal}`);
+        error.killed = true;
+        error.signal = signal;
+        reject(error);
+      } else if (code !== 0) {
+        const error: any = new Error(`Process exited with code ${code}`);
+        error.code = code;
+        error.stderr = stderr;
+        reject(error);
+      } else {
+        resolve({ stdout, stderr });
+      }
+    });
+
+    // Handle timeout
+    if (options.timeout) {
+      setTimeout(() => {
+        if (!child.killed) {
+          child.kill('SIGTERM');
+        }
+      }, options.timeout);
+    }
+  });
+}
 
 /**
  * Configuration from environment variables
@@ -63,16 +128,15 @@ export async function callLLM(userMessage: string): Promise<LLMResult> {
     ],
   };
 
-  // Serialize request to JSON and escape for shell
-  // CRITICAL: Escape single quotes for shell command line safety
-  const requestJson = JSON.stringify(request).replace(/'/g, "'\\''");
+  // Serialize request to JSON (no shell escaping needed with spawn)
+  const requestJson = JSON.stringify(request);
 
-  // Build subprocess command
-  const command = `${PYTHON_PATH} "${LLM_CLI_PATH}" --request-json '${requestJson}'`;
+  // Build argument array for spawn (SECURE: no shell interpretation)
+  const args = [LLM_CLI_PATH, '--request-json', requestJson];
 
   try {
-    // Execute subprocess with timeout
-    const { stdout, stderr } = await execAsync(command, {
+    // Execute subprocess with timeout (using spawn, not exec)
+    const { stdout, stderr } = await spawnAsync(PYTHON_PATH, args, {
       timeout: LLM_TIMEOUT_MS,
       maxBuffer: 1024 * 1024, // 1MB buffer for large responses
     });
