@@ -18,6 +18,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import chatRouter from './routes/chat';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -48,6 +49,12 @@ app.use(express.json());
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
+
+/**
+ * Chat API Routes
+ * Handles chat message endpoints
+ */
+app.use('/api', chatRouter);
 
 // Export app for testing
 export { app };
