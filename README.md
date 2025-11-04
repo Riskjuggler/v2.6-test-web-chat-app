@@ -9,6 +9,13 @@ A localhost web-based AI chat interface for querying LLMs via LMStudio.
 - LMStudio integration via llm_caller_cli subprocess
 - Real-time message flow
 - Local-only (no cloud deployment)
+- Comprehensive test coverage (80% threshold)
+- ESLint + Prettier code quality tools
+
+## Documentation
+
+- **[SETUP.md](SETUP.md)** - Detailed setup instructions, troubleshooting, and verification steps
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture, data flow, API contracts, and system design
 
 ## Prerequisites
 
@@ -17,7 +24,7 @@ A localhost web-based AI chat interface for querying LLMs via LMStudio.
 - LMStudio running on localhost:1234 with model loaded
 - llm_caller_cli module at `../forwork/modules/llm_caller_cli/`
 
-## Installation
+## Quick Start
 
 ```bash
 # Install frontend dependencies
@@ -27,6 +34,13 @@ npm install
 # Install backend dependencies
 cd ../server
 npm install
+
+# Configure environment (copy and edit if needed)
+cd server
+cp .env.example .env
+
+# Verify environment setup
+npm run verify-env
 ```
 
 ## Running the App
@@ -44,6 +58,8 @@ npm start
 ```
 
 The app will open at `http://localhost:3000` with backend at `http://localhost:3001`.
+
+For detailed setup instructions, see [SETUP.md](SETUP.md).
 
 ## Project Structure
 
@@ -138,6 +154,43 @@ Both frontend and backend enforce coverage thresholds:
 - Functions: 80%
 - Lines: 80%
 - Branches: 75%
+
+## Quick Reference
+
+```bash
+# Development
+cd server && npm run dev        # Start backend server
+cd client && npm start          # Start frontend server
+
+# Testing
+cd server && npm test           # Run backend tests
+cd client && npm test           # Run frontend tests (interactive)
+cd server && npm run test:coverage  # Backend coverage report
+cd client && npm run test:coverage  # Frontend coverage report
+
+# Code Quality
+cd server && npm run lint       # Check backend code
+cd client && npm run lint       # Check frontend code
+cd server && npm run format     # Format backend code
+cd client && npm run format     # Format frontend code
+
+# Environment
+cd server && npm run verify-env # Verify configuration
+
+# Health Check
+curl http://localhost:3001/health  # Backend health endpoint
+```
+
+## Development Status
+
+**Sprint 1: Foundation Complete** ✅
+- Project scaffolding (React + Express + TypeScript)
+- Testing infrastructure (Jest + RTL + Supertest, 80% coverage)
+- Environment configuration (dotenv, CORS, llm_call.py integration)
+- Code quality tools (ESLint + Prettier)
+- Comprehensive documentation (README, SETUP, ARCHITECTURE)
+
+**Next: Sprint 2** - Backend API + Frontend Components
 
 ## License
 
