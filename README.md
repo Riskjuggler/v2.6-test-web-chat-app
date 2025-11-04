@@ -72,17 +72,72 @@ web-chat-app/
 - Backend runs on `localhost:3001`
 - Hot reload enabled for both
 
-## Testing
+### Code Quality
+
+This project uses ESLint and Prettier for code quality and consistency.
 
 ```bash
-# Frontend tests
+# Lint code (check for errors)
+cd client && npm run lint
+cd server && npm run lint
+
+# Format code (auto-fix formatting)
+cd client && npm run format
+cd server && npm run format
+
+# Check formatting without changes
+cd client && npm run format:check
+cd server && npm run format:check
+```
+
+**Formatting Standards:**
+- Single quotes for strings
+- Semicolons required
+- 2-space indentation
+- 100-character line width
+- ES5 trailing commas
+
+## Testing
+
+This project uses Jest with React Testing Library (frontend) and Supertest (backend) for comprehensive testing.
+
+### Frontend Tests
+
+```bash
 cd client
+
+# Run tests in watch mode (interactive)
 npm test
 
-# Backend tests
-cd server
-npm test
+# Run tests once (CI mode)
+npm test -- --watchAll=false
+
+# Generate coverage report (80% threshold)
+npm run test:coverage
 ```
+
+### Backend Tests
+
+```bash
+cd server
+
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Generate coverage report (80% threshold)
+npm run test:coverage
+```
+
+### Coverage Requirements
+
+Both frontend and backend enforce coverage thresholds:
+- Statements: 80%
+- Functions: 80%
+- Lines: 80%
+- Branches: 75%
 
 ## License
 
