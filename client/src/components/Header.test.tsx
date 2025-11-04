@@ -77,7 +77,8 @@ describe('Header Component', () => {
     const header = container.querySelector('header');
 
     expect(header).toHaveClass('flex', 'items-center', 'justify-between');
-    expect(header).toHaveClass('p-4', 'bg-blue-600', 'text-white', 'shadow-md');
+    expect(header).toHaveClass('p-5', 'text-white', 'shadow-lg');
+    expect(header).toHaveClass('bg-gradient-to-r', 'from-blue-600', 'to-blue-700');
   });
 
   test('clear button has proper ARIA label for accessibility', () => {

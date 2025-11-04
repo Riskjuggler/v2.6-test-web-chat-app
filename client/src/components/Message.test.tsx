@@ -26,7 +26,7 @@ describe('Message Component', () => {
           timestamp={mockTimestamp}
         />
       );
-      const messageDiv = container.querySelector('.bg-blue-500');
+      const messageDiv = container.querySelector('.bg-blue-600');
       expect(messageDiv).toBeInTheDocument();
       expect(messageDiv).toHaveClass('text-white');
     });
@@ -64,7 +64,7 @@ describe('Message Component', () => {
           timestamp={mockTimestamp}
         />
       );
-      const messageDiv = container.querySelector('.bg-gray-300');
+      const messageDiv = container.querySelector('.bg-gray-200');
       expect(messageDiv).toBeInTheDocument();
       expect(messageDiv).toHaveClass('text-gray-900');
     });

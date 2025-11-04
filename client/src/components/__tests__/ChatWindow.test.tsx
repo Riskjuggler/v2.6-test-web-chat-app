@@ -34,7 +34,7 @@ describe('ChatWindow', () => {
     it('should style empty state with gray text', () => {
       const { container } = render(<ChatWindow messages={[]} />);
       const emptyStateContainer = container.firstChild as HTMLElement;
-      expect(emptyStateContainer).toHaveClass('text-gray-400');
+      expect(emptyStateContainer).toHaveClass('text-gray-500');
     });
   });
 
