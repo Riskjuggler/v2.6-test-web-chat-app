@@ -41,7 +41,11 @@ describe('App Integration', () => {
 
   describe('Message Sending', () => {
     it('adds user message to state when sent', async () => {
-      mockSendMessage.mockResolvedValue({ reply: 'Assistant response', model: 'test', provider: 'test' });
+      mockSendMessage.mockResolvedValue({
+        reply: 'Assistant response',
+        model: 'test',
+        provider: 'test',
+      });
 
       render(<App />);
       const input = screen.getByPlaceholderText('Type your message...');
@@ -58,7 +62,11 @@ describe('App Integration', () => {
     });
 
     it('displays assistant response after API call', async () => {
-      mockSendMessage.mockResolvedValue({ reply: 'Hello, human!', model: 'test', provider: 'test' });
+      mockSendMessage.mockResolvedValue({
+        reply: 'Hello, human!',
+        model: 'test',
+        provider: 'test',
+      });
 
       render(<App />);
       const input = screen.getByPlaceholderText('Type your message...');

@@ -91,10 +91,9 @@ describe('App Integration Tests - Full Message Flow', () => {
       expect(input).toHaveValue('');
 
       // Verify API was called correctly
-      expect(mockAxiosInstance.post).toHaveBeenCalledWith(
-        '/api/chat',
-        { message: 'Hello, assistant!' }
-      );
+      expect(mockAxiosInstance.post).toHaveBeenCalledWith('/api/chat', {
+        message: 'Hello, assistant!',
+      });
     });
 
     it('should handle multiple messages in sequence (conversation state)', async () => {

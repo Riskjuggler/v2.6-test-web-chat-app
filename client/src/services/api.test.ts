@@ -82,9 +82,7 @@ describe('API Client - sendMessage', () => {
     isAxiosError.mockReturnValue(true);
 
     await expect(sendMessage('')).rejects.toThrow(ValidationError);
-    await expect(sendMessage('')).rejects.toThrow(
-      'Invalid request. Please check your input.'
-    );
+    await expect(sendMessage('')).rejects.toThrow('Invalid request. Please check your input.');
   });
 
   it('should throw ServiceUnavailableError for 503 status', async () => {
@@ -94,9 +92,7 @@ describe('API Client - sendMessage', () => {
     });
     isAxiosError.mockReturnValue(true);
 
-    await expect(sendMessage('Hello')).rejects.toThrow(
-      ServiceUnavailableError
-    );
+    await expect(sendMessage('Hello')).rejects.toThrow(ServiceUnavailableError);
     await expect(sendMessage('Hello')).rejects.toThrow(
       'Service temporarily unavailable. Please try again.'
     );
@@ -110,9 +106,7 @@ describe('API Client - sendMessage', () => {
     isAxiosError.mockReturnValue(true);
 
     await expect(sendMessage('Hello')).rejects.toThrow(ServerError);
-    await expect(sendMessage('Hello')).rejects.toThrow(
-      'Server error. Please try again later.'
-    );
+    await expect(sendMessage('Hello')).rejects.toThrow('Server error. Please try again later.');
   });
 
   it('should throw ServerError for other 5xx errors', async () => {
@@ -188,8 +182,6 @@ describe('API Client - sendMessage', () => {
     isAxiosError.mockReturnValue(false);
 
     await expect(sendMessage('Hello')).rejects.toThrow(NetworkError);
-    await expect(sendMessage('Hello')).rejects.toThrow(
-      'An unexpected error occurred'
-    );
+    await expect(sendMessage('Hello')).rejects.toThrow('An unexpected error occurred');
   });
 });

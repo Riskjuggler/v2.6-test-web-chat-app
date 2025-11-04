@@ -182,7 +182,9 @@ describe('ChatWindow', () => {
 
       const { container } = render(<ChatWindow messages={messages} />);
       // The scroll anchor is a div at the end of the message list
-      const scrollAnchor = container.querySelector('div[class*="overflow-y-auto"] > div:last-child');
+      const scrollAnchor = container.querySelector(
+        'div[class*="overflow-y-auto"] > div:last-child'
+      );
       expect(scrollAnchor).toBeInTheDocument();
     });
   });
