@@ -20,3 +20,18 @@
 
 ---
 
+## Backlog Items from WU-002 Output Reviews
+
+**Date**: 2025-11-03
+**Work Unit**: WU-002 - Testing Infrastructure Setup
+
+### P1 Issues
+
+None
+
+### P2 Issues
+
+- [P2] **Testing Strategy**: Coverage thresholds (80%) may fail as codebase grows before tests catch up - consider starting at 50% and increasing gradually
+
+---
+
