@@ -34,7 +34,9 @@ import { sendMessage } from './api';
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 const axiosInstance = mockedAxios.create();
 const post = axiosInstance.post as jest.Mock;
-const isAxiosError = axios.isAxiosError as jest.Mock;
+const isAxiosError = jest.fn() as jest.Mock;
+// Mock axios.isAxiosError
+(axios.isAxiosError as any) = isAxiosError;
 
 describe('API Client - sendMessage', () => {
   beforeEach(() => {

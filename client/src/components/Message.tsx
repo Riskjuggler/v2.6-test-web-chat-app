@@ -21,9 +21,7 @@ const Message: React.FC<MessageProps> = ({ role, content, timestamp }) => {
     <div className={`flex mb-4 ${isUser ? 'justify-end' : 'justify-start'}`}>
       <div
         className={`max-w-xs md:max-w-md lg:max-w-lg px-4 py-2 rounded-lg break-words ${
-          isUser
-            ? 'bg-blue-500 text-white'
-            : 'bg-gray-300 text-gray-900'
+          isUser ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-900'
         }`}
       >
         <p className="text-sm md:text-base">{content}</p>
