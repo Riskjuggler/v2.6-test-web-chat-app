@@ -1,5 +1,7 @@
 # Web Chat App - Detailed Setup Guide
 
+**Last Updated**: 2025-11-04
+
 This guide provides step-by-step instructions for setting up and running the Web Chat App MVP.
 
 ## Prerequisites
