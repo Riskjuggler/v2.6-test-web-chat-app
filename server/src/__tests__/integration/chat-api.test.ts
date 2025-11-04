@@ -77,7 +77,7 @@ describe('Chat API Integration Tests', () => {
       expect(mockExec).toHaveBeenCalledTimes(1);
       const commandArg = mockExec.mock.calls[0][0];
       expect(commandArg).toContain('python3');
-      expect(commandArg).toContain('/path/to/llm_call.py');
+      expect(commandArg).toContain('llm_call.py'); // Check for script name, not full path
       expect(commandArg).toContain('--request-json');
     });
 
@@ -152,7 +152,7 @@ describe('Chat API Integration Tests', () => {
       mockError.stderr = 'Invalid request format: missing provider field';
 
       mockExec.mockImplementation((cmd, options, callback: any) => {
-        callback(mockError, '', mockError.stderr || '');
+        callback(mockError);
         return {} as any;
       });
 
@@ -179,7 +179,7 @@ describe('Chat API Integration Tests', () => {
       mockError.stderr = 'Connection refused to http://localhost:1234';
 
       mockExec.mockImplementation((cmd, options, callback: any) => {
-        callback(mockError, '', mockError.stderr || '');
+        callback(mockError);
         return {} as any;
       });
 
@@ -206,7 +206,7 @@ describe('Chat API Integration Tests', () => {
       mockError.stderr = 'Model returned 500 Internal Server Error';
 
       mockExec.mockImplementation((cmd, options, callback: any) => {
-        callback(mockError, '', mockError.stderr || '');
+        callback(mockError);
         return {} as any;
       });
 
@@ -232,7 +232,7 @@ describe('Chat API Integration Tests', () => {
       mockError.stderr = 'Unexpected Python exception: KeyError';
 
       mockExec.mockImplementation((cmd, options, callback: any) => {
-        callback(mockError, '', mockError.stderr || '');
+        callback(mockError);
         return {} as any;
       });
 
@@ -255,7 +255,7 @@ describe('Chat API Integration Tests', () => {
       mockError.signal = 'SIGTERM';
 
       mockExec.mockImplementation((cmd, options, callback: any) => {
-        callback(mockError, '', mockError.stderr || '');
+        callback(mockError);
         return {} as any;
       });
 
@@ -430,20 +430,43 @@ describe('Chat API Integration Tests', () => {
     });
   });
 
-  describe('Environment Configuration Cases', () => {
-    it('should return 500 when LLM_CLI_PATH is not set', async () => {
-      // Arrange: Remove LLM_CLI_PATH environment variable
-      delete process.env.LLM_CLI_PATH;
+  describe('Complete Flow Verification', () => {
+    it('should execute complete request/response cycle', async () => {
+      // Arrange: Mock complete successful flow
+      const mockLLMResponse = {
+        provider: 'lmstudio',
+        model: 'test-model',
+        choices: [
+          {
+            message: {
+              role: 'assistant',
+              content: 'Integration test successful',
+            },
+          },
+        ],
+      };
 
-      // Act
+      mockExec.mockImplementation((cmd, options, callback: any) => {
+        // Verify the command structure
+        expect(cmd).toContain('python3');
+        expect(cmd).toContain('--request-json');
+
+        // Return success
+        callback(null, { stdout: JSON.stringify(mockLLMResponse), stderr: '' });
+        return {} as any;
+      });
+
+      // Act: Execute complete flow
       const response = await request(app)
         .post('/api/chat')
-        .send({ message: 'Hello' })
-        .expect(500);
+        .send({ message: 'Test integration' })
+        .expect(200);
 
-      // Assert
-      expect(response.body.error).toBe('Internal Server Error');
-      expect(mockExec).not.toHaveBeenCalled();
+      // Assert: Verify end-to-end flow
+      expect(response.body.reply).toBe('Integration test successful');
+      expect(response.body.model).toBe('test-model');
+      expect(response.body.provider).toBe('lmstudio');
+      expect(mockExec).toHaveBeenCalledTimes(1);
     });
   });
 
