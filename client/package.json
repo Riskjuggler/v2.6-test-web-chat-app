@@ -42,6 +42,9 @@
       "!src/**/*.d.ts",
       "!src/index.tsx",
       "!src/reportWebVitals.ts"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)"
     ]
   },
   "browserslist": {
