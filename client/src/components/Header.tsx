@@ -24,11 +24,11 @@ const Header: React.FC<HeaderProps> = ({ onClearChat }) => {
   };
 
   return (
-    <header className="flex items-center justify-between p-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg">
-      <div className="flex items-center gap-3">
-        <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+    <header className="flex items-center justify-between p-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md">
+      <div className="flex items-center gap-2">
+        <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
           <svg
-            className="w-5 h-5 text-blue-600"
+            className="w-4 h-4 text-blue-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -41,12 +41,12 @@ const Header: React.FC<HeaderProps> = ({ onClearChat }) => {
             />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold tracking-tight">AI Chat</h1>
+        <h1 className="text-lg font-bold">AI Chat</h1>
       </div>
       {onClearChat && (
         <button
           onClick={handleClearClick}
-          className="px-5 py-2.5 bg-red-500 hover:bg-red-600 active:bg-red-700 rounded-lg transition-all duration-200 font-medium shadow-md hover:shadow-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-blue-600"
+          className="px-3 py-1 bg-red-500 hover:bg-red-600 rounded text-sm font-medium focus:outline-none focus:ring-2 focus:ring-red-400"
           aria-label="Clear chat history"
         >
           Clear Chat
