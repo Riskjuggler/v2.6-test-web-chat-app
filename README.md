@@ -12,6 +12,29 @@ A localhost web-based AI chat interface for querying LLMs via LMStudio.
 - Comprehensive test coverage (80% threshold)
 - ESLint + Prettier code quality tools
 
+## Security & Production Status
+
+**Current Version**: v1.0.0-stable
+**Status**: ✅ Production Ready (all P0 blockers resolved)
+
+### Recent Security Fixes (2025-11-04)
+
+- ✅ **P0-1 FIXED**: Command injection vulnerability resolved (replaced exec with spawn)
+- ✅ **P0-2 FIXED**: window.confirm blocker resolved (custom modal component)
+
+### Known Limitations
+
+See [KNOWN-LIMITATIONS.md](KNOWN-LIMITATIONS.md) for complete list of:
+- ✅ Resolved P0 issues (3 total)
+- ⚠️ P1 improvements recommended (3 identified)
+- 📝 P2 enhancements available (17+ ideas)
+
+### Production Deployment
+
+- **Localhost**: Ready for immediate deployment
+- **Public Internet**: Requires additional hardening (rate limiting, monitoring, authentication)
+- **Checklist**: See [DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md)
+
 ## Documentation
 
 - **[SETUP.md](SETUP.md)** - Detailed setup instructions, troubleshooting, and verification steps

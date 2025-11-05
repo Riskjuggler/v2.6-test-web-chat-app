@@ -16,9 +16,39 @@ This document outlines known limitations, technical debt, and areas for improvem
 
 ## Critical Limitations (P0)
 
-### None Currently
+### ✅ P0-R1: Missing Chat Router (RESOLVED in WU-011)
+**Original Issue**: server/src/index.ts imported './routes/chat' which didn't exist
+**Resolution**: WU-011 created chat.ts router with 15 comprehensive tests
+**Resolved Date**: 2025-11-03
+**Status**: ✅ RESOLVED
 
-All P0 (critical/blocking) issues have been resolved or mitigated.
+---
+
+### ✅ P0-1: Command Injection Vulnerability (RESOLVED in WU-P0-1)
+**Location**: `server/src/services/llm.ts` (was lines 68-71)
+**Original Risk**: Remote code execution via malicious environment variables
+**Resolution**: Replaced `execAsync()` with `spawn()` to prevent shell injection
+**Resolved Date**: 2025-11-04
+**Status**: ✅ RESOLVED
+**Fix Details**: See `.claude/analysis/summaries/WU-P0-1-delivery-report.md`
+
+---
+
+### ✅ P0-2: window.confirm UX Blocker (RESOLVED in WU-P0-2)
+**Location**: `client/src/components/Header.tsx` (was line 9)
+**Original Issue**: Native browser confirm dialog (non-professional UX, poor accessibility)
+**Resolution**: Created custom ConfirmModal component with full accessibility support
+**Resolved Date**: 2025-11-04
+**Status**: ✅ RESOLVED
+**Fix Details**: See `.claude/analysis/summaries/WU-P0-2-delivery-report.md`
+
+---
+
+## Production Readiness Assessment
+
+**As of 2025-11-04**: ✅ **ALL P0 BLOCKERS RESOLVED** - Production ready after validation
+
+**Safe Deployment**: Yes, with standard production hardening (rate limiting, monitoring, etc.)
 
 ---
 

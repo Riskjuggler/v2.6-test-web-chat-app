@@ -154,14 +154,16 @@
 
 ### ✅ 11. Security Checklist
 
-- [ ] CORS configured for correct origin only
-- [ ] No hardcoded secrets in codebase
-- [ ] XSS protection verified (script tags rendered as text)
-- [ ] Input validation working on backend
-- [ ] Error messages don't leak sensitive information
-- [ ] Subprocess isolation working (llm_call.py)
-- [ ] No SQL injection risks (no database in MVP)
-- [ ] Environment variables in .env (not committed to git)
+- [x] CORS configured for correct origin only
+- [x] No hardcoded secrets in codebase
+- [x] XSS protection verified (React built-in escaping)
+- [x] ✅ **P0-1 RESOLVED**: Command injection fixed (spawn replaces exec)
+- [x] ✅ **P0-2 RESOLVED**: window.confirm replaced with custom modal
+- [x] Input validation working on backend
+- [x] Error messages don't leak sensitive information
+- [x] Subprocess isolation working (spawn with args array)
+- [x] No SQL injection risks (no database in MVP)
+- [x] Environment variables in .env (not committed to git)
 
 ### ✅ 12. Known Limitations Documented
 
