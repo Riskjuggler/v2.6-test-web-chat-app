@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ConfirmModal from './ConfirmModal';
 
 interface HeaderProps {
   onClearChat?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onClearChat }) => {
-  const handleClearClick = () => {
-    const confirmed = window.confirm(
-      'Are you sure you want to clear the chat history? This action cannot be undone.'
-    );
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-    if (confirmed && onClearChat) {
+  const handleClearClick = () => {
+    setShowConfirmModal(true);
+  };
+
+  const handleConfirm = () => {
+    setShowConfirmModal(false);
+    if (onClearChat) {
       onClearChat();
     }
+  };
+
+  const handleCancel = () => {
+    setShowConfirmModal(false);
   };
 
   return (
@@ -44,6 +52,15 @@ const Header: React.FC<HeaderProps> = ({ onClearChat }) => {
           Clear Chat
         </button>
       )}
+      <ConfirmModal
+        isOpen={showConfirmModal}
+        title="Clear Chat History"
+        message="Are you sure you want to clear all messages? This action cannot be undone."
+        confirmLabel="Clear"
+        cancelLabel="Cancel"
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
     </header>
   );
 };

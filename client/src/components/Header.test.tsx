@@ -3,17 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Header from './Header';
 
-// Mock window.confirm
-const mockConfirm = jest.spyOn(window, 'confirm');
-
 describe('Header Component', () => {
-  beforeEach(() => {
-    mockConfirm.mockClear();
-  });
-
-  afterAll(() => {
-    mockConfirm.mockRestore();
-  });
 
   test('renders app title "AI Chat"', () => {
     render(<Header />);
@@ -31,45 +21,47 @@ describe('Header Component', () => {
     expect(screen.queryByRole('button', { name: /clear chat/i })).not.toBeInTheDocument();
   });
 
-  test('shows confirmation dialog when clear button is clicked', async () => {
+  test('shows confirmation modal when clear button is clicked', async () => {
     const mockCallback = jest.fn();
-    mockConfirm.mockReturnValue(false);
 
     render(<Header onClearChat={mockCallback} />);
     const clearButton = screen.getByRole('button', { name: /clear chat/i });
 
     await userEvent.click(clearButton);
 
-    expect(mockConfirm).toHaveBeenCalledTimes(1);
-    expect(mockConfirm).toHaveBeenCalledWith(
-      'Are you sure you want to clear the chat history? This action cannot be undone.'
-    );
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.getByText('Clear Chat History')).toBeInTheDocument();
+    expect(screen.getByText(/are you sure you want to clear all messages/i)).toBeInTheDocument();
   });
 
-  test('calls onClearChat callback when user confirms', async () => {
+  test('calls onClearChat callback when user confirms in modal', async () => {
     const mockCallback = jest.fn();
-    mockConfirm.mockReturnValue(true);
 
     render(<Header onClearChat={mockCallback} />);
     const clearButton = screen.getByRole('button', { name: /clear chat/i });
 
     await userEvent.click(clearButton);
 
-    expect(mockConfirm).toHaveBeenCalledTimes(1);
+    const confirmButton = screen.getByRole('button', { name: /^clear$/i });
+    await userEvent.click(confirmButton);
+
     expect(mockCallback).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
-  test('does not call onClearChat callback when user cancels', async () => {
+  test('does not call onClearChat callback when user cancels in modal', async () => {
     const mockCallback = jest.fn();
-    mockConfirm.mockReturnValue(false);
 
     render(<Header onClearChat={mockCallback} />);
     const clearButton = screen.getByRole('button', { name: /clear chat/i });
 
     await userEvent.click(clearButton);
 
-    expect(mockConfirm).toHaveBeenCalledTimes(1);
+    const cancelButton = screen.getByRole('button', { name: /cancel/i });
+    await userEvent.click(cancelButton);
+
     expect(mockCallback).not.toHaveBeenCalled();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   test('header has proper styling classes', () => {
