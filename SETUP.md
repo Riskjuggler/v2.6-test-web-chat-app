@@ -23,8 +23,8 @@ This guide provides step-by-step instructions for setting up and running the Web
    - Must be running on `localhost:1234`
 
 5. **llm_caller_cli** module
-   - Location: `../forwork/modules/llm_caller_cli/`
-   - Verify: File exists at `../forwork/modules/llm_caller_cli/llm_call.py`
+   - Location: `../../llm_caller_cli/` (included in parent directory)
+   - Verify: File exists at `../../llm_caller_cli/llm_call.py`
 
 ## Installation Steps
 
@@ -63,7 +63,7 @@ cp .env.example .env
 # Edit .env if needed (default values work for standard setup)
 # PORT=3001
 # CORS_ORIGIN=http://localhost:3000
-# LLM_CLI_PATH=../../../forwork/modules/llm_caller_cli/llm_call.py
+# LLM_CLI_PATH=../../llm_caller_cli/llm_call.py
 # PYTHON_PATH=python3
 # LLM_TIMEOUT_MS=30000
 ```
@@ -238,7 +238,7 @@ kill -9 <PID>
 ### llm_call.py Not Found
 
 1. Verify path in `.env` is correct
-2. Check file exists: `ls ../../../forwork/modules/llm_caller_cli/llm_call.py`
+2. Check file exists: `ls ../../llm_caller_cli/llm_call.py`
 3. Use absolute path if needed: `/full/path/to/llm_call.py`
 
 ### npm install Fails

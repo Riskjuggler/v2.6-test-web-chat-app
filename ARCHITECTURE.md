@@ -36,7 +36,7 @@ The Web Chat App is a localhost web application that provides a chat interface f
                    ▼
 ┌─────────────────────────────────────────┐
 │   llm_caller_cli (subprocess)           │
-│   ../forwork/modules/llm_caller_cli/    │
+│   ../../llm_caller_cli/                 │
 │  ┌──────────────────────────────────┐   │
 │  │   llm_call.py                    │   │
 │  │   - JSON request/response        │   │
@@ -290,7 +290,7 @@ interface LLMResponse {
 |----------|---------|-------------|
 | PORT | 3001 | Backend server port |
 | CORS_ORIGIN | http://localhost:3000 | Allowed frontend origin |
-| LLM_CLI_PATH | ../../../forwork/modules/llm_caller_cli/llm_call.py | Path to llm_call.py |
+| LLM_CLI_PATH | ../../llm_caller_cli/llm_call.py | Path to llm_call.py (relative to server/) |
 | PYTHON_PATH | python3 | Python executable |
 | LLM_TIMEOUT_MS | 30000 | Subprocess timeout (30s) |
 
@@ -450,7 +450,7 @@ interface LLMResponse {
 - **WU-032**: `.claude/analysis/summaries/WU-032-delivery-report.md` - Edge case testing
 
 ### External Dependencies
-- **llm_caller_cli**: `../forwork/modules/llm_caller_cli/README.md`
+- **llm_caller_cli**: `../../llm_caller_cli/README.md` (included in parent directory)
 - **LMStudio**: https://lmstudio.ai/
 
 ---
