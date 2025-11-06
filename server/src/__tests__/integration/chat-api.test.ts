@@ -26,7 +26,7 @@ describe('Chat API Integration Tests', () => {
     jest.clearAllMocks();
 
     // Set required environment variables for LLM service
-    process.env.LLM_CLI_PATH = '/path/to/llm_call.py';
+    process.env.LLM_CLI_PATH = '../../llm_caller_cli/llm_call.py';
     process.env.PYTHON_PATH = 'python3';
     process.env.LLM_TIMEOUT_MS = '30000';
   });

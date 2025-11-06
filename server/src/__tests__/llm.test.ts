@@ -23,7 +23,7 @@ jest.mock('child_process', () => ({
 const mockSpawn = spawn as jest.MockedFunction<typeof spawn>;
 
 // Set environment variables BEFORE importing the service
-process.env.LLM_CLI_PATH = '/path/to/llm_call.py';
+process.env.LLM_CLI_PATH = '../../llm_caller_cli/llm_call.py';
 process.env.PYTHON_PATH = 'python3';
 process.env.LLM_TIMEOUT_MS = '30000';
 

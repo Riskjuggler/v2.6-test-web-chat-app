@@ -35,7 +35,7 @@ function createMockChildProcess() {
 }
 
 // Set environment variables BEFORE importing the service
-process.env.LLM_CLI_PATH = '/path/to/llm_call.py';
+process.env.LLM_CLI_PATH = '../../llm_caller_cli/llm_call.py';
 process.env.PYTHON_PATH = 'python3';
 process.env.LLM_TIMEOUT_MS = '30000';
 
@@ -46,7 +46,7 @@ describe('Backend Edge Case Tests', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     // Ensure environment is set
-    process.env.LLM_CLI_PATH = '/path/to/llm_call.py';
+    process.env.LLM_CLI_PATH = '../../llm_caller_cli/llm_call.py';
     process.env.PYTHON_PATH = 'python3';
     process.env.LLM_TIMEOUT_MS = '30000';
   });
@@ -502,7 +502,7 @@ describe('Backend Edge Case Tests', () => {
 
     it('should use default timeout when LLM_TIMEOUT_MS is invalid', async () => {
       jest.isolateModules(() => {
-        process.env.LLM_CLI_PATH = '/path/to/llm_call.py';
+        process.env.LLM_CLI_PATH = '../../llm_caller_cli/llm_call.py';
         process.env.PYTHON_PATH = 'python3';
         process.env.LLM_TIMEOUT_MS = 'not-a-number';
 
@@ -529,7 +529,7 @@ describe('Backend Edge Case Tests', () => {
 
     it('should use custom timeout from environment', async () => {
       jest.isolateModules(() => {
-        process.env.LLM_CLI_PATH = '/path/to/llm_call.py';
+        process.env.LLM_CLI_PATH = '../../llm_caller_cli/llm_call.py';
         process.env.PYTHON_PATH = 'python3';
         process.env.LLM_TIMEOUT_MS = '5000';
 

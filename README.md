@@ -53,7 +53,7 @@ See [KNOWN-LIMITATIONS.md](KNOWN-LIMITATIONS.md) for complete list of:
 - Node.js v18+
 - Python 3.9+
 - LMStudio running on localhost:1234 with model loaded
-- llm_caller_cli module at `../forwork/modules/llm_caller_cli/`
+- llm_caller_cli module (included in parent directory)
 
 ## Quick Start
 
