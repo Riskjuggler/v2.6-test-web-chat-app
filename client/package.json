@@ -1,6 +1,22 @@
 {
-  "name": "client",
+  "name": "web-chat-app-client",
   "version": "1.0.0",
+  "description": "React frontend for Web Chat App - AI chat interface with LMStudio integration",
+  "author": "Riskjuggler",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Riskjuggler/v2.6-test-web-chat-app.git"
+  },
+  "keywords": [
+    "chat",
+    "ai",
+    "llm",
+    "lmstudio",
+    "react",
+    "typescript",
+    "v2.6-workflow"
+  ],
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.1",

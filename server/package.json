@@ -1,6 +1,22 @@
 {
-  "name": "server",
+  "name": "web-chat-app-server",
   "version": "1.0.0",
+  "description": "Express backend for Web Chat App - LLM integration and API endpoints",
+  "author": "Riskjuggler",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Riskjuggler/v2.6-test-web-chat-app.git"
+  },
+  "keywords": [
+    "chat",
+    "ai",
+    "llm",
+    "lmstudio",
+    "express",
+    "typescript",
+    "v2.6-workflow"
+  ],
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",
@@ -14,10 +30,6 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
